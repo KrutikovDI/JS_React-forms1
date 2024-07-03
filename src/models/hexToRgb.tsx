@@ -1,21 +1,16 @@
 
 export const hexToRgb = (hex: string) => {
-    const res = hex.match(/\w\w/g)
-    if (res == null) {return {
+    hex = hex.replace(/^#/, '')
+    if (!/^[0-9A-F]{6}$/i.test(hex)) {return {
       converter: 'Ошибка!',
       color: 'rgb(255,0,0)'
-    }
-  } else {
-      let [r, g, b] = res.map(x => parseInt(x, 16));
-      if (!Number.isNaN(r) && !Number.isNaN(g) && !Number.isNaN(b) && r!=undefined && g!=undefined && b!=undefined) {
-        return {
-          converter: `rgb(${r},${g},${b})`,
-          color: `rgb(${r},${g},${b})`
-        }
-      } else {return {
-          converter: 'Ошибка!',
-          color: 'rgb(255,0,0)'
-        }
+    }} else {
+      let r = parseInt(hex.substring(0, 2), 16);
+      let g = parseInt(hex.substring(2, 4), 16);
+      let b = parseInt(hex.substring(4, 6), 16);
+      return {
+        converter: `rgb(${r},${g},${b})`,
+        color: `rgb(${r},${g},${b})`
       }
     }
   };
